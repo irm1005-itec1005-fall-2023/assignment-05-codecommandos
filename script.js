@@ -64,4 +64,31 @@ function stand() {
     }
   }
 }
+
+function endGame(message) {
+  document.getElementById('result').innerText = message;
+  gameInProgress = false;
+
+  if (message.includes('Win')) {
+    wallet += bet;
+  } else if (message.includes('Dealer Wins')) {
+    wallet -= bet;
+  }
+
+  document.getElementById('wallet').innerText = wallet;
+}
+
+function resetGame() {
+  if (!gameInProgress) {
+
+    bet = 0;
+
+
+    document.getElementById('result').innerText = '';
+    document.getElementById('player-score').innerText = '0';
+    document.getElementById('dealer-score').innerText = '0';
+    document.getElementById('wallet').innerText = wallet;
+    document.getElementById('bet').innerText = bet;
+  }
+}
   
