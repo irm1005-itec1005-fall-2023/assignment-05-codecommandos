@@ -43,3 +43,17 @@ function updateScore(hand, role) {
     }
   }
 }
+
+function hit() {
+  if (gameInProgress) {
+    dealCard(playerHand, 'player');
+  }
+}
+
+function stand() {
+  if (gameInProgress) {
+    while (dealerScore < 17) {
+      dealCard(dealerHand, 'dealer');
+    }
+  }
+}
