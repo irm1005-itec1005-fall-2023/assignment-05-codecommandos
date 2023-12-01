@@ -5,5 +5,17 @@ function startGame() {
     playerHand = [];
     dealerHand = [];
     gameInProgress = true;
+
+    document.getElementById('result').innerText = '';
+    document.getElementById('player-score').innerText = playerScore;
+    document.getElementById('dealer-score').innerText = dealerScore;
+    document.getElementById('wallet').innerText = wallet;
+    document.getElementById('bet').innerText = bet;
+
+    dealCard(playerHand, 'player');
+    dealCard(dealerHand, 'dealer');
+    dealCard(playerHand, 'player');
+    dealCard(dealerHand, 'dealer');
+
   }
 }
