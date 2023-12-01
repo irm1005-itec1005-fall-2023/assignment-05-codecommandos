@@ -23,13 +23,18 @@
     <link rel="icon" href="./images/favicon/rocket.svg" type="image/svg+xml" />
   </head>
   <body>
-    <!--
-
-      ADD YOUR GROUP PROJECT CODE
-
-      YOU MAY REMOVE THE BOILERPLATE CODE BELOW
-
-    -->
+    <div id="game-container">
+      <h1>Blackjack Game</h1>
+      <p>Wallet: $<span id="wallet">100</span></p>
+      <p>Bet: $<span id="bet">0</span></p>
+      <p>Player Score: <span id="player-score">0</span></p>
+      <p>Dealer Score: <span id="dealer-score">0</span></p>
+      <div id="result"></div>
+      <button onclick="startGame()">Start Game</button>
+      <button onclick="hit()">Hit</button>
+      <button onclick="stand()">Stand</button>
+      <button onclick="resetGame()">Reset Game</button>
+    </div>
     <main>
       <div id="app"></div>
     </main>
