@@ -55,5 +55,13 @@ function stand() {
     while (dealerScore < 17) {
       dealCard(dealerHand, 'dealer');
     }
+    if (dealerScore > playerScore && dealerScore <= 21) {
+      endGame('Dealer Wins.');
+    } else if (playerScore > dealerScore || dealerScore > 21) {
+      endGame('You Win!');
+    } else {
+      endGame('It\'s a Tie!');
+    }
   }
 }
+  
