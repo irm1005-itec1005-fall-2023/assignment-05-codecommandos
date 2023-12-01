@@ -25,3 +25,21 @@ function dealCard(hand, role) {
   hand.push(cardValue);
   updateScore(hand, role);
 }
+
+function updateScore(hand, role) {
+  const scoreElement = document.getElementById(`${role}-score`);
+  const score = hand.reduce((sum, card) => sum + card, 0);
+  scoreElement.innerText = score;
+
+  if (role === 'player') {
+    playerScore = score;
+    if (playerScore > 21) {
+      endGame('You have Busted! Dealer Wins.');
+    }
+  } else {
+    dealerScore = score;
+    if (dealerScore > 21) {
+      endGame('Dealer has Busted! You Win.');
+    }
+  }
+}
