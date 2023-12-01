@@ -19,3 +19,9 @@ function startGame() {
 
   }
 }
+
+function dealCard(hand, role) {
+  const cardValue = Math.floor(Math.random() * 9) + 2; 
+  hand.push(cardValue);
+  updateScore(hand, role);
+}
