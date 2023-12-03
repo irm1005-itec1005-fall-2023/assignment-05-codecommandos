@@ -35,6 +35,15 @@
       <button onclick="stand()">Stand</button>
       <button onclick="resetGame()">Reset Game</button>
     </div>
+    <form id="betForm">
+      <label for="amount">Bet Amount:</label>
+      <input type="number" id="amount" name="amount" min="1" required>
+      
+      <label for="prediction">Your Prediction:</label>
+      <input type="text" id="prediction" name="prediction" required>
+
+      <button type="button" onclick="placeBet()">Place Bet</button>
+    </form>
     <main>
       <div id="app"></div>
     </main>

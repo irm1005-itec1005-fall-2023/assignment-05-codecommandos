@@ -78,6 +78,27 @@ function endGame(message) {
   document.getElementById('wallet').innerText = wallet;
 }
 
+function placeBet() {
+  var amount = document.getElementById("amount").value;
+  var prediction = document.getElementById("prediction").value;
+
+  if (amount <= 0) {
+    alert("Please enter a valid bet amount.");
+    return;
+  }
+ 
+  setTimeout(function() {
+    var resultDiv = document.getElementById("result");
+
+    var randomResult = Math.random() < 0.5 ? "Win" : "Lose";
+     
+    resultDiv.innerHTML = `Your bet of ${amount} on ${prediction} is a ${randomResult}!`;
+
+    document.getElementById("betForm").reset();
+  }, 1000);
+}
+
+
 function resetGame() {
   if (!gameInProgress) {
 
