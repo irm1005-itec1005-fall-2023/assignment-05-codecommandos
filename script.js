@@ -1,3 +1,20 @@
+// Constants 
+const starter = document.getElementById('starter');
+const click = document.getElementById('click');
+const standing = document.getElementById('standing');
+const restart = document.getElementById('restart');
+
+
+// Variables for the game
+let playerScore = 0;
+let dealerScore = 0;
+let playerHand = [];
+let dealerHand = [];
+let gameInProgress = false;
+let wallet = 100;
+let bet = 0;
+
+
 function startGame() {
   if (!gameInProgress) {
     playerScore = 0;
@@ -112,4 +129,8 @@ function resetGame() {
     document.getElementById('bet').innerText = bet;
   }
 }
-  
+  //Event listeners for the buttons
+starter.addEventListener('click', startGame);
+click.addEventListener('click', hit);
+standing.addEventListener('click', stand);
+restart.addEventListener('click', resetGame);
