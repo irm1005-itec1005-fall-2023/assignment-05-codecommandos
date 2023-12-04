@@ -96,23 +96,24 @@ function endGame(message) {
 }
 
 function placeBet() {
-  var amount = document.getElementById("amount").value;
-  var prediction = document.getElementById("prediction").value;
+  if (!gameInProgress) {
+    const amount = parseFloat(document.getElementById('amount').value);
 
-  if (amount <= 0) {
-    alert("Please enter a valid bet amount.");
-    return;
+    if (isNaN(amount) || amount <= 0) {
+      alert('Please enter a valid bet amount.');
+      return;
+    }
+
+    if (amount > wallet) {
+      alert('Insufficient funds.');
+      return;
+    }
+
+    bet = amount;
+
+
+    document.getElementById('bet').innerText = bet;
   }
- 
-  setTimeout(function() {
-    var resultDiv = document.getElementById("result");
-
-    var randomResult = Math.random() < 0.5 ? "Win" : "Lose";
-     
-    resultDiv.innerHTML = `Your bet of ${amount} on ${prediction} is a ${randomResult}!`;
-
-    document.getElementById("betForm").reset();
-  }, 1000);
 }
 
 
