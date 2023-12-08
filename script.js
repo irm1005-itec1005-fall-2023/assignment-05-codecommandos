@@ -125,7 +125,7 @@ function placeBet() {
     gameInProgress = false;
 
     if (message.includes('You Win')) {
-      wallet += bet;
+      wallet += bet * 2 + wallet; // Multiply the bet by 2 when the player wins
     } else if (message.includes('Dealer Wins')) {
       wallet -= bet;
     }
