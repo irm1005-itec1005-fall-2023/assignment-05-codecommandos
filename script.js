@@ -1,20 +1,16 @@
-// Constants 
-const starter = document.getElementById('starter');
-const click = document.getElementById('click');
-const standing = document.getElementById('standing');
-const restart = document.getElementById('restart');
-
-
-// Variables for the game
+let gameInProgress = false;
 let playerScore = 0;
 let dealerScore = 0;
-let playerHand = [];
-let dealerHand = [];
-let gameInProgress = false;
-let wallet = 100;
-let bet = 0;
+let wallet = parseInt(document.getElementById('wallet').innerText);
+let bet = 0; // Initialize the bet variable here
 
+// Add event listeners to buttons
+document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('hit-btn').addEventListener('click', hit);
+document.getElementById('stand-btn').addEventListener('click', stand);
+document.getElementById('reset-btn').addEventListener('click', resetGame);
 
+// Function to start the game
 function startGame() {
   if (!gameInProgress) {
     playerScore = 0;
@@ -22,27 +18,31 @@ function startGame() {
     playerHand = [];
     dealerHand = [];
     gameInProgress = true;
+    bet = 10; // Set an initial bet or retrieve it from an input field
 
+    // Update the display
     document.getElementById('result').innerText = '';
     document.getElementById('player-score').innerText = playerScore;
     document.getElementById('dealer-score').innerText = dealerScore;
     document.getElementById('wallet').innerText = wallet;
-    document.getElementById('bet').innerText = bet;
+    document.getElementById('bet').innerText = bet; // Ensure bet is displayed as a string
 
+    // Deal initial cards
     dealCard(playerHand, 'player');
     dealCard(dealerHand, 'dealer');
     dealCard(playerHand, 'player');
     dealCard(dealerHand, 'dealer');
-
   }
 }
 
+// Function to deal a card
 function dealCard(hand, role) {
-  const cardValue = Math.floor(Math.random() * 9) + 2; 
+  const cardValue = Math.floor(Math.random() * 9) + 2;
   hand.push(cardValue);
   updateScore(hand, role);
 }
 
+// Function to update the score
 function updateScore(hand, role) {
   const scoreElement = document.getElementById(`${role}-score`);
   const score = hand.reduce((sum, card) => sum + card, 0);
@@ -61,77 +61,63 @@ function updateScore(hand, role) {
   }
 }
 
+// Function for when the player hits
 function hit() {
   if (gameInProgress) {
     dealCard(playerHand, 'player');
   }
 }
 
+// Function for when the player stands
 function stand() {
   if (gameInProgress) {
     while (dealerScore < 17) {
       dealCard(dealerHand, 'dealer');
     }
-    if (dealerScore > playerScore && dealerScore <= 21) {
-      endGame('Dealer Wins.');
-    } else if (playerScore > dealerScore || dealerScore > 21) {
-      endGame('You Win!');
-    } else {
-      endGame('It\'s a Tie!');
-    }
+    endGameBasedOnScore();
   }
 }
 
+// Function to determine the outcome after the player stands
+function endGameBasedOnScore() {
+  if (dealerScore > playerScore && dealerScore <= 21) {
+    endGame('Dealer Wins.');
+  } else if (playerScore > dealerScore || dealerScore > 21) {
+    endGame('You Win!');
+  } else {
+    endGame('It\'s a Tie!');
+  }
+}
+
+// Function to end the game and update wallet
 function endGame(message) {
+  console.log('Wallet before endGame:', wallet);
   document.getElementById('result').innerText = message;
   gameInProgress = false;
 
-  if (message.includes('Win')) {
+  if (message.includes('You Win')) {
     wallet += bet;
   } else if (message.includes('Dealer Wins')) {
     wallet -= bet;
   }
 
-  document.getElementById('wallet').innerText = wallet;
+  console.log('Wallet after endGame:', wallet);
+  document.getElementById('wallet').innerText = wallet.toString(); // Ensure wallet is a string for display
 }
 
-function placeBet() {
-  if (!gameInProgress) {
-    const amount = parseFloat(document.getElementById('amount').value);
-
-    if (isNaN(amount) || amount <= 0) {
-      alert('Please enter a valid bet amount.');
-      return;
-    }
-
-    if (amount > wallet) {
-      alert('Insufficient funds.');
-      return;
-    }
-
-    bet = amount;
-
-
-    document.getElementById('bet').innerText = bet;
-  }
-}
-
-
+// Function to reset the game
 function resetGame() {
   if (!gameInProgress) {
+    bet = 0; // Reset the bet
+    wallet = parseInt(document.getElementById('wallet').innerText); // Ensure wallet is a number
 
-    bet = 0;
-
-
+    // Update the display
     document.getElementById('result').innerText = '';
     document.getElementById('player-score').innerText = '0';
     document.getElementById('dealer-score').innerText = '0';
-    document.getElementById('wallet').innerText = wallet;
-    document.getElementById('bet').innerText = bet;
+    document.getElementById('wallet').innerText = wallet.toString();
+    document.getElementById('bet').innerText = bet ; // Display the reset bet as a string
   }
 }
-  //Event listeners for the buttons
-starter.addEventListener('click', startGame);
-click.addEventListener('click', hit);
-standing.addEventListener('click', stand);
-restart.addEventListener('click', resetGame);
+
+// You can add more code here if needed...

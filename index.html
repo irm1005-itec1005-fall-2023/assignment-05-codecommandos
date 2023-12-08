@@ -23,24 +23,18 @@
     <link rel="icon" href="./images/favicon/rocket.svg" type="image/svg+xml" />
   </head>
   <body>
-    <div class="game-container">
+    <div id="game-container">
       <h1>Blackjack Game</h1>
       <p>Wallet: $<span id="wallet">100</span></p>
       <p>Bet: $<span id="bet">0</span></p>
       <p>Player Score: <span id="player-score">0</span></p>
       <p>Dealer Score: <span id="dealer-score">0</span></p>
       <div id="result"></div>
-      <button id="starter" onclick="startGame()">Start Game</button>
-      <button id="click" onclick="hit()">Hit</button>
-      <button id="standing" onclick="stand()">Stand</button>
-      <button id="restart" onclick="resetGame()">Reset Game</button>
+      <button id="start-btn" onclick="startGame()">Start Game</button>
+      <button id="hit-btn" onclick="hit()">Hit</button>
+      <button id="stand-btn" onclick="stand()">Stand</button>
+      <button id="reset-btn" onclick="resetGame()">Reset Game</button>
     </div>
-    <form class="betForm">
-      <label for="amount">Bet Amount:</label>
-      <input type="number" id="amount" name="amount" min="1" required>
-
-      <button type="button" onclick="placeBet()">Place Bet</button>
-    </form>
     <main>
       <div id="app"></div>
     </main>
