@@ -75,3 +75,90 @@ main {
 .betForm {
   color: black;
 }
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #300f0f;
+  margin: 0;
+  padding: 0;
+}
+
+#game-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ff7e7e;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 28px;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+
+button {
+  background-color: rgb(4, 87, 176);
+  color: #c18989;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ebf5ff;
+}
+
+
+#bet-input {
+  padding: 5px;
+  border: 1px solid rgb(212, 19, 19)cdc;
+  border-radius: 5px;
+  margin: 5px;
+  width: 100px;
+}
+
+
+#result {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+
+#player-score,
+#dealer-score {
+  font-weight: bold;
+}
+
+
+#wallet,
+#bet {
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(236, 245, 255);
+}
+
+
+main {
+  text-align: center;
+}
+
+
+#app {
+  margin-top: 20px;
+}
+
+#result {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+}
+
