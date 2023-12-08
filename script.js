@@ -43,29 +43,33 @@
     updateScore(hand, role);
   }
 
-  // Function to place a bet
-  function placeBet() {
-    if (!gameInProgress) {
-      // Prompt the user for the bet amount
-      let betAmount = prompt('Enter your bet amount:');
-      
-      // Check if the input is valid and deduct the amount from the wallet
-      if (betAmount !== null && !isNaN(betAmount) && betAmount !== '') {
-        betAmount = parseInt(betAmount);
-        if (betAmount <= wallet && betAmount > 0) {
-          bet = betAmount;
-          wallet -= bet;
+// Update the wallet variable each time it changes in the UI
+function updateWallet(newWalletValue) {
+  wallet = newWalletValue;
+  document.getElementById('wallet').innerText = wallet.toString();
+}
 
-          document.getElementById('bet').innerText = bet.toString();
-          document.getElementById('wallet').innerText = wallet.toString();
-        } else {
-          alert('Invalid bet amount. Please enter a valid amount.');
-        }
+  // Function to place a bet
+function placeBet() {
+  if (!gameInProgress) {
+    let betAmount = parseInt(document.getElementById('bet-input').value);
+
+    if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount)) {
+      if (betAmount <= wallet) {
+        bet = betAmount;
+        wallet -= bet;
+
+        document.getElementById('bet').innerText = bet.toString();
+        updateWallet(wallet); // Update the wallet value
       } else {
-        alert('Invalid input. Please enter a valid number.');
+        alert('Bet amount exceeds your wallet balance. Please enter a valid amount.');
       }
+    } else {
+      alert('Invalid bet amount. Please enter a whole number.');
     }
   }
+}
+
 
   // Function to update the score
   function updateScore(hand, role) {
@@ -134,13 +138,13 @@
   function resetGame() {
     if (!gameInProgress) {
       bet = 0; // Reset the bet
-      wallet = parseInt(document.getElementById('wallet').innerText); // Ensure wallet is a number
-
+      wallet = parseInt(document.getElementById('wallet').innerText); // Get the initial wallet value
+  
       // Update the display
       document.getElementById('result').innerText = '';
       document.getElementById('player-score').innerText = '0';
       document.getElementById('dealer-score').innerText = '0';
-      document.getElementById('wallet').innerText = wallet.toString();
-      document.getElementById('bet').innerText = bet ; // Display the reset bet as a string
+      updateWallet(wallet); // Update the wallet value in the UI
+      document.getElementById('bet').innerText = bet.toString();
     }
   }
