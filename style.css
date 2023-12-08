@@ -101,19 +101,12 @@ h1 {
 }
 
 
-button {
-  background-color: rgb(4, 87, 176);
-  color: #c18989;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-button:hover {
-  background-color: #ebf5ff;
+button {
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: #4caf50;
 }
 
 
@@ -160,5 +153,32 @@ main {
   font-weight: bold;
   margin-top: 10px;
   color: #333;
+}
+
+button {
+  margin: 2px;
+}
+
+#bet-input::placeholder {
+  color: #b07070;
+}
+
+#game-container {
+  background-color: rgb(110, 32, 32);
+  padding: 20px;
+}
+button:hover {
+  background-color: rgb(160, 69, 75);
+  transform: scale(1.05);
+}
+#bet-input {
+  border: 2px solid #4caf50;
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+#result {
+  font-size: 32px;
+  color: #ff5722;
 }
 
