@@ -11,6 +11,19 @@
   document.getElementById('stand-btn').addEventListener('click', stand);
   document.getElementById('reset-btn').addEventListener('click', resetGame);
 
+  // Event listener for bet input changes
+document.getElementById('bet-input').addEventListener('input', function() {
+  let betAmount = parseInt(document.getElementById('bet-input').value);
+  
+  if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount) && betAmount <= wallet) {
+    // If valid input and within wallet balance, enable the bet button
+    document.getElementById('bet-btn').disabled = false;
+  } else {
+    // Otherwise, disable the bet button
+    document.getElementById('bet-btn').disabled = true;
+  }
+});
+
   // Function to start the game
   function startGame() {
     if (!gameInProgress) {
@@ -19,7 +32,7 @@
       playerHand = [];
       dealerHand = [];
       gameInProgress = true;
-      bet = 10; // Set an initial bet or retrieve it from an input field
+      bet = 0; // Set an initial bet or retrieve it from an input field
 
       // Update the display
       document.getElementById('result').innerText = '';
@@ -50,25 +63,28 @@ function updateWallet(newWalletValue) {
 }
 
   // Function to place a bet
-function placeBet() {
-  if (!gameInProgress) {
-    let betAmount = parseInt(document.getElementById('bet-input').value);
-
-    if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount)) {
-      if (betAmount <= wallet) {
-        bet = betAmount;
-        wallet -= bet;
-
-        document.getElementById('bet').innerText = bet.toString();
-        updateWallet(wallet); // Update the wallet value
+  function placeBet() {
+    if (!gameInProgress) {
+      let betAmount = parseInt(document.getElementById('bet-input').value);
+  
+      if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount)) {
+        if (betAmount <= wallet) {
+          bet = betAmount;
+          wallet -= bet;
+  
+          document.getElementById('bet').innerText = bet.toString();
+          updateWallet(wallet); // Update the wallet value
+  
+          // Enable the bet button after a valid amount is entered
+          document.getElementById('bet-btn').disabled = false;
+        } else {
+          alert('Bet amount exceeds your wallet balance. Please enter a valid amount.');
+        }
       } else {
-        alert('Bet amount exceeds your wallet balance. Please enter a valid amount.');
+        alert('Invalid bet amount. Please enter a whole number.');
       }
-    } else {
-      alert('Invalid bet amount. Please enter a whole number.');
     }
   }
-}
 
 
   // Function to update the score
@@ -123,15 +139,15 @@ function placeBet() {
     console.log('Wallet before endGame:', wallet);
     document.getElementById('result').innerText = message;
     gameInProgress = false;
-
+  
     if (message.includes('You Win')) {
-      wallet += bet * 2 + wallet; // Multiply the bet by 2 when the player wins
+      wallet += bet * 2; // Add the winning amount to the wallet
     } else if (message.includes('Dealer Wins')) {
-      wallet -= bet;
+      wallet -= bet; // Deduct the bet amount from the wallet
     }
-
+  
     console.log('Wallet after endGame:', wallet);
-    document.getElementById('wallet').innerText = wallet.toString(); // Ensure wallet is a string for display
+    document.getElementById('wallet').innerText = wallet.toString(); // Update the wallet display
   }
 
   // Function to reset the game
@@ -146,5 +162,8 @@ function placeBet() {
       document.getElementById('dealer-score').innerText = '0';
       updateWallet(wallet); // Update the wallet value in the UI
       document.getElementById('bet').innerText = bet.toString();
+  
+      // Disable the bet button until a new bet is entered
+      document.getElementById('bet-btn').disabled = true;
     }
   }
