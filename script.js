@@ -1,3 +1,5 @@
+  let playerHand = [];
+  let dealerHand = [];  
   let gameInProgress = false;
   let playerScore = 0;
   let dealerScore = 0;
