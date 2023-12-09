@@ -1,25 +1,23 @@
-  let gameInProgress = false;
-  let playerScore = 0;
-  let dealerScore = 0;
-  let wallet = parseInt(document.getElementById('wallet').innerText);
-  let bet = 0; // Initialize the bet variable here
+let gameInProgress = false;
+let playerScore = 0;
+let dealerScore = 0;
+let wallet = parseInt(document.getElementById('wallet').innerText);
+let bet = 0;
 
-  // Event listeners to buttons
-  document.getElementById('start-btn').addEventListener('click', startGame);
-  document.getElementById('hit-btn').addEventListener('click', hit);
-  document.getElementById('bet-btn').addEventListener('click', placeBet);
-  document.getElementById('stand-btn').addEventListener('click', stand);
-  document.getElementById('reset-btn').addEventListener('click', resetGame);
+// Event listeners to buttons
+document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('hit-btn').addEventListener('click', hit);
+document.getElementById('bet-btn').addEventListener('click', placeBet);
+document.getElementById('stand-btn').addEventListener('click', stand);
+document.getElementById('reset-btn').addEventListener('click', resetGame);
 
-  // Event listener for bet input changes
-document.getElementById('bet-input').addEventListener('input', function() {
+// Event listener for bet input changes
+document.getElementById('bet-input').addEventListener('input', function () {
   let betAmount = parseInt(document.getElementById('bet-input').value);
-  
+
   if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount) && betAmount <= wallet) {
-    // If valid input and within wallet balance, enable the bet button
     document.getElementById('bet-btn').disabled = false;
   } else {
-    // Otherwise, disable the bet button
     document.getElementById('bet-btn').disabled = true;
   }
 });
@@ -146,9 +144,17 @@ function updateWallet(newWalletValue) {
       wallet -= bet; // Deduct the bet amount from the wallet
     }
   
+    updateWallet(wallet); // Update the wallet value in the UI
+  
     console.log('Wallet after endGame:', wallet);
     document.getElementById('wallet').innerText = wallet.toString(); // Update the wallet display
   }
+
+    // UI update after game is over
+    function updateUIAfterEndGame() {
+      document.getElementById('wallet').innerText = wallet.toString(); // Update wallet display
+      document.getElementById('bet').innerText = bet.toString(); // Update bet display
+    }
 
   // Function to reset the game
   function resetGame() {
