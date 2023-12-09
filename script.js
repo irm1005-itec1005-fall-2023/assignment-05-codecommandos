@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   let playerHand = [];
   let dealerHand = [];  
   let gameInProgress = false;
@@ -5,23 +6,28 @@
   let dealerScore = 0;
   let wallet = parseInt(document.getElementById('wallet').innerText);
   let bet = 0; // Initialize the bet variable here
+=======
+let gameInProgress = false;
+let playerScore = 0;
+let dealerScore = 0;
+let wallet = parseInt(document.getElementById('wallet').innerText);
+let bet = 0;
+>>>>>>> e65b44f24b9452b49019edb73699cbd37901c61f
 
-  // Event listeners to buttons
-  document.getElementById('start-btn').addEventListener('click', startGame);
-  document.getElementById('hit-btn').addEventListener('click', hit);
-  document.getElementById('bet-btn').addEventListener('click', placeBet);
-  document.getElementById('stand-btn').addEventListener('click', stand);
-  document.getElementById('reset-btn').addEventListener('click', resetGame);
+// Event listeners to buttons
+document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('hit-btn').addEventListener('click', hit);
+document.getElementById('bet-btn').addEventListener('click', placeBet);
+document.getElementById('stand-btn').addEventListener('click', stand);
+document.getElementById('reset-btn').addEventListener('click', resetGame);
 
-  // Event listener for bet input changes
-document.getElementById('bet-input').addEventListener('input', function() {
+// Event listener for bet input changes
+document.getElementById('bet-input').addEventListener('input', function () {
   let betAmount = parseInt(document.getElementById('bet-input').value);
-  
+
   if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount) && betAmount <= wallet) {
-    // If valid input and within wallet balance, enable the bet button
     document.getElementById('bet-btn').disabled = false;
   } else {
-    // Otherwise, disable the bet button
     document.getElementById('bet-btn').disabled = true;
   }
 });
@@ -34,15 +40,18 @@ document.getElementById('bet-input').addEventListener('input', function() {
       playerHand = [];
       dealerHand = [];
       gameInProgress = true;
-      bet = 0; // Set an initial bet or retrieve it from an input field
-
+  
+      // Retrieve the initial bet value and deduct it from the wallet
+      bet = parseInt(document.getElementById('bet').innerText);
+      wallet -= bet;
+  
       // Update the display
       document.getElementById('result').innerText = '';
       document.getElementById('player-score').innerText = playerScore;
       document.getElementById('dealer-score').innerText = dealerScore;
       document.getElementById('wallet').innerText = wallet;
       document.getElementById('bet').innerText = bet; // Ensure bet is displayed as a string
-
+  
       // Deal initial cards
       dealCard(playerHand, 'player');
       dealCard(dealerHand, 'dealer');
@@ -136,27 +145,36 @@ function updateWallet(newWalletValue) {
     }
   }
 
-  // Function to end the game and update wallet
-  function endGame(message) {
-    console.log('Wallet before endGame:', wallet);
-    document.getElementById('result').innerText = message;
-    gameInProgress = false;
-  
-    if (message.includes('You Win')) {
-      wallet += bet * 2; // Add the winning amount to the wallet
-    } else if (message.includes('Dealer Wins')) {
-      wallet -= bet; // Deduct the bet amount from the wallet
-    }
-  
-    console.log('Wallet after endGame:', wallet);
-    document.getElementById('wallet').innerText = wallet.toString(); // Update the wallet display
+// Function to end the game and update wallet
+function endGame(message) {
+  console.log('Wallet before endGame:', wallet);
+  document.getElementById('result').innerText = message;
+  gameInProgress = false;
+
+  if (message.includes('You Win')) {
+    wallet += bet * 2; // Winning amount: original bet + win (doubling the bet)
+  } else if (message.includes('Dealer Wins')) {
+    // No need to change the wallet here as the bet is already deducted when placed
+    // wallet -= bet; // No need to deduct again as the bet has already been deducted
   }
+
+  updateWallet(wallet); // Update the wallet value in the UI
+
+  console.log('Wallet after endGame:', wallet);
+  document.getElementById('wallet').innerText = wallet.toString(); // Update the wallet display
+}
+
+    // UI update after game is over
+    function updateUIAfterEndGame() {
+      document.getElementById('wallet').innerText = wallet.toString(); // Update wallet display
+      document.getElementById('bet').innerText = bet.toString(); // Update bet display
+    }
 
   // Function to reset the game
   function resetGame() {
     if (!gameInProgress) {
       bet = 0; // Reset the bet
-      wallet = parseInt(document.getElementById('wallet').innerText); // Get the initial wallet value
+      wallet = 100 //Wallet reset
   
       // Update the display
       document.getElementById('result').innerText = '';
@@ -169,3 +187,14 @@ function updateWallet(newWalletValue) {
       document.getElementById('bet-btn').disabled = true;
     }
   }
+  
+// Function to end the game and update wallet
+function endGame(message) {
+  // ...
+  document.getElementById('result').innerText = message;
+  document.getElementById('result').classList.add('show'); // Add the 'show' class
+  gameInProgress = false;
+
+  // ...
+}
+
