@@ -30,15 +30,18 @@ document.getElementById('bet-input').addEventListener('input', function () {
       playerHand = [];
       dealerHand = [];
       gameInProgress = true;
-      bet = 0; // Set an initial bet or retrieve it from an input field
-
+  
+      // Retrieve the initial bet value and deduct it from the wallet
+      bet = parseInt(document.getElementById('bet').innerText);
+      wallet -= bet;
+  
       // Update the display
       document.getElementById('result').innerText = '';
       document.getElementById('player-score').innerText = playerScore;
       document.getElementById('dealer-score').innerText = dealerScore;
       document.getElementById('wallet').innerText = wallet;
       document.getElementById('bet').innerText = bet; // Ensure bet is displayed as a string
-
+  
       // Deal initial cards
       dealCard(playerHand, 'player');
       dealCard(dealerHand, 'dealer');
@@ -132,23 +135,24 @@ function updateWallet(newWalletValue) {
     }
   }
 
-  // Function to end the game and update wallet
-  function endGame(message) {
-    console.log('Wallet before endGame:', wallet);
-    document.getElementById('result').innerText = message;
-    gameInProgress = false;
-  
-    if (message.includes('You Win')) {
-      wallet += bet * 2; // Add the winning amount to the wallet (original bet + win)
-    } else if (message.includes('Dealer Wins')) {
-      wallet -= bet; // Deduct the bet amount from the wallet
-    }
-  
-    updateWallet(wallet); // Update the wallet value in the UI
-  
-    console.log('Wallet after endGame:', wallet);
-    document.getElementById('wallet').innerText = wallet.toString(); // Update the wallet display
+// Function to end the game and update wallet
+function endGame(message) {
+  console.log('Wallet before endGame:', wallet);
+  document.getElementById('result').innerText = message;
+  gameInProgress = false;
+
+  if (message.includes('You Win')) {
+    wallet += bet * 2; // Winning amount: original bet + win (doubling the bet)
+  } else if (message.includes('Dealer Wins')) {
+    // No need to change the wallet here as the bet is already deducted when placed
+    // wallet -= bet; // No need to deduct again as the bet has already been deducted
   }
+
+  updateWallet(wallet); // Update the wallet value in the UI
+
+  console.log('Wallet after endGame:', wallet);
+  document.getElementById('wallet').innerText = wallet.toString(); // Update the wallet display
+}
 
     // UI update after game is over
     function updateUIAfterEndGame() {
@@ -160,7 +164,7 @@ function updateWallet(newWalletValue) {
   function resetGame() {
     if (!gameInProgress) {
       bet = 0; // Reset the bet
-      wallet = parseInt(document.getElementById('wallet').innerText); // Get the initial wallet value
+      wallet = 100 //Wallet reset
   
       // Update the display
       document.getElementById('result').innerText = '';
@@ -184,12 +188,3 @@ function endGame(message) {
   // ...
 }
 
-// Function to reset the game
-function resetGame() {
-  if (!gameInProgress) {
-    // ...
-    document.getElementById('result').innerText = '';
-    document.getElementById('result').classList.remove('show'); // Remove the 'show' class
-    // ...
-  }
-}
