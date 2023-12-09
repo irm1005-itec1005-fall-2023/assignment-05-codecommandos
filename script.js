@@ -173,3 +173,23 @@ function updateWallet(newWalletValue) {
       document.getElementById('bet-btn').disabled = true;
     }
   }
+  
+// Function to end the game and update wallet
+function endGame(message) {
+  // ...
+  document.getElementById('result').innerText = message;
+  document.getElementById('result').classList.add('show'); // Add the 'show' class
+  gameInProgress = false;
+
+  // ...
+}
+
+// Function to reset the game
+function resetGame() {
+  if (!gameInProgress) {
+    // ...
+    document.getElementById('result').innerText = '';
+    document.getElementById('result').classList.remove('show'); // Remove the 'show' class
+    // ...
+  }
+}
