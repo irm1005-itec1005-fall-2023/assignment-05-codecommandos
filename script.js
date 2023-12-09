@@ -141,7 +141,7 @@ function updateWallet(newWalletValue) {
     gameInProgress = false;
   
     if (message.includes('You Win')) {
-      wallet += bet * 2; // Add the winning amount to the wallet
+      wallet += bet * 2; // Add the winning amount to the wallet (original bet + win)
     } else if (message.includes('Dealer Wins')) {
       wallet -= bet; // Deduct the bet amount from the wallet
     }
