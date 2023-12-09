@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
   let playerHand = [];
   let dealerHand = [];  
   let gameInProgress = false;
@@ -6,13 +6,6 @@
   let dealerScore = 0;
   let wallet = parseInt(document.getElementById('wallet').innerText);
   let bet = 0; // Initialize the bet variable here
-=======
-let gameInProgress = false;
-let playerScore = 0;
-let dealerScore = 0;
-let wallet = parseInt(document.getElementById('wallet').innerText);
-let bet = 0;
->>>>>>> e65b44f24b9452b49019edb73699cbd37901c61f
 
 // Event listeners to buttons
 document.getElementById('start-btn').addEventListener('click', startGame);
