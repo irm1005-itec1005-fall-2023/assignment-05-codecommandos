@@ -86,11 +86,11 @@ function updateWallet() {
   let outcome = determineOutcome();
 
   if (outcome === 'win') {
-    wallet += bet;
+    wallet += bet * 2; // Double the bet on win
   } else if (outcome === 'lose') {
     wallet -= bet;
     if (wallet < 0) {
-      wallet = 0; // Set wallet to 0 if it goes negative
+      wallet = 0; // Ensure wallet doesn't drop below 0
     }
   }
   // No change to the wallet if it's a draw
@@ -100,31 +100,27 @@ function updateWallet() {
 }
 
   // Function to place a bet
-  function placeBet() {
-    if (!gameInProgress) {
-      let betAmount = parseInt(document.getElementById('bet-input').value);
-  
-      if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount)) {
-        if (betAmount <= wallet) {
-          bet = betAmount;
-          wallet -= bet;
-  
-          document.getElementById('bet').innerText = bet.toString();
-          updateWallet(wallet); // Update the wallet value
-  
-          betPlaced = true // Locks in bet for the round
+function placeBet() {
+  if (!gameInProgress) {
+    let betAmount = parseInt(document.getElementById('bet-input').value);
 
+    if (!isNaN(betAmount) && betAmount > 0 && Number.isInteger(betAmount)) {
+      if (betAmount <= wallet) {
+        bet = betAmount;
 
-          // Enable the bet button after a valid amount is entered
-          document.getElementById('bet-btn').disabled = false;
-        } else {
-          alert('Bet amount exceeds your wallet balance. Please enter a valid amount.');
-        }
+        document.getElementById('bet').innerText = bet.toString();
+        betPlaced = true; // Locks in bet for the round
+
+        // Enable the bet button after a valid amount is entered
+        document.getElementById('bet-btn').disabled = false;
       } else {
-        alert('Invalid bet amount. Please enter a whole number.');
+        alert('Bet amount exceeds your wallet balance. Please enter a valid amount.');
       }
+    } else {
+      alert('Invalid bet amount. Please enter a whole number.');
     }
   }
+}
 
 
   // Function to update the score
