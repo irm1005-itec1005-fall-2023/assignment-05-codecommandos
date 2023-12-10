@@ -25,33 +25,38 @@ document.getElementById('bet-input').addEventListener('input', function () {
   }
 });
 
-  // Function to start the game
-  function startGame() {
-    if (!gameInProgress) {
-      playerScore = 0;
-      dealerScore = 0;
-      playerHand = [];
-      dealerHand = [];
-      gameInProgress = true;
-  
-      // Retrieve the initial bet value and deduct it from the wallet
-      bet = parseInt(document.getElementById('bet').innerText);
-      wallet -= bet;
-  
-      // Update the display
-      document.getElementById('result').innerText = '';
-      document.getElementById('player-score').innerText = playerScore;
-      document.getElementById('dealer-score').innerText = dealerScore;
-      document.getElementById('wallet').innerText = wallet;
-      document.getElementById('bet').innerText = bet; // Ensure bet is displayed as a string
-  
-      // Deal initial cards
-      dealCard(playerHand, 'player');
-      dealCard(dealerHand, 'dealer');
-      dealCard(playerHand, 'player');
-      dealCard(dealerHand, 'dealer');
+ // Function to start the game
+function startGame() {
+  if (!gameInProgress) {
+    if (wallet <= 0) {
+      alert('Your wallet balance is insufficient to continue playing. Please reset the game.');
+      return; // Stop the game initiation if the wallet balance is insufficient
     }
+
+    playerScore = 0;
+    dealerScore = 0;
+    playerHand = [];
+    dealerHand = [];
+    gameInProgress = true;
+
+    // Retrieve the initial bet value and deduct it from the wallet
+    bet = parseInt(document.getElementById('bet').innerText);
+    wallet -= bet;
+
+    // Update the display
+    document.getElementById('result').innerText = '';
+    document.getElementById('player-score').innerText = playerScore;
+    document.getElementById('dealer-score').innerText = dealerScore;
+    document.getElementById('wallet').innerText = wallet;
+    document.getElementById('bet').innerText = bet; // Ensure bet is displayed as a string
+
+    // Deal initial cards
+    dealCard(playerHand, 'player');
+    dealCard(dealerHand, 'dealer');
+    dealCard(playerHand, 'player');
+    dealCard(dealerHand, 'dealer');
   }
+}
 
   function determineOutcome() {
     if (playerScore > 21) {
